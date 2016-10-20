@@ -1,0 +1,53 @@
+
+#
+# This is a complete entry for "steve". Note that there is no Fall-Through
+# entry so that no DEFAULT entry will be used, and the user will NOT
+# get any attributes in addition to the ones listed here.
+#
+#steve	Cleartext-Password := "testing"
+#	Service-Type = Framed-User,
+#	Framed-Protocol = PPP,
+#	Framed-IP-Address = 172.16.3.33,
+#	Framed-IP-Netmask = 255.255.255.0,
+#	Framed-Routing = Broadcast-Listen,
+#	Framed-Filter-Id = "std.ppp",
+#	Framed-MTU = 1500,
+#	Framed-Compression = Van-Jacobsen-TCP-IP
+steve Cleartext-Password := "macbook"
+
+# NOTE: we do not use Hint = "PPP", since PPP might also be auto-detected
+#	by the terminal server in which case there may not be a "P" suffix.
+#	The terminal server sends "Framed-Protocol = PPP" for auto PPP.
+#
+DEFAULT	Framed-Protocol == PPP
+	Framed-Protocol = PPP,
+	Framed-Compression = Van-Jacobson-TCP-IP
+
+#
+# Default for CSLIP: dynamic IP address, SLIP mode, VJ-compression.
+#
+DEFAULT	Hint == "CSLIP"
+	Framed-Protocol = SLIP,
+	Framed-Compression = Van-Jacobson-TCP-IP
+
+#
+# Default for SLIP: dynamic IP address, SLIP mode.
+#
+DEFAULT	Hint == "SLIP"
+	Framed-Protocol = SLIP
+
+#
+# Last default: rlogin to our main server.
+#
+#DEFAULT
+#	Service-Type = Login-User,
+#	Login-Service = Rlogin,
+#	Login-IP-Host = shellbox.ispdomain.com
+
+# #
+# # Last default: shell on the local terminal server.
+# #
+# DEFAULT
+# 	Service-Type = Administrative-User
+
+# On no match, the user is denied access.
