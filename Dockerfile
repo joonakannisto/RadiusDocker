@@ -12,4 +12,4 @@ EXPOSE \
     1813 \
     18120
 
-CMD "/bin/bash" 
+CMD ["/usr/sbin/freeradius","-f"]
